@@ -97,6 +97,35 @@ def deal():
                     if player_hand_total > 21:
                         print("You bust! Sorry!")
                         multiplier = -1
+                    else:
+                        dealer_suit = random.choice(suits)
+                        dealer_value = random.randint(1, 13)
+                        dealer_hand.append(draw_card(dealer_suit, dealer_value))
+                        dealer_hand_card_count += 1
+                        if dealer_value > 10:
+                            dealer_hand_total += 10
+                        elif dealer_value == 1:
+                            if dealer_hand_total < 11:
+                                dealer_hand_total += 11
+                            else:
+                                dealer_hand_total += 1
+                        else:
+                            dealer_hand_total += dealer_value
+                        if dealer_hand_total > 21:
+                            print("Dealer busts, you win!")
+                            print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                            multiplier = 2
+                        elif player_hand_total > dealer_hand_total:
+                            print("You win!")
+                            multiplier = 2
+                        elif player_hand_total == dealer_hand_total:
+                            print("You tied!")
+                            print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                            multiplier = 0
+                        else:
+                            print("Dealer wins!")
+                            print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                            multiplier = -1
                 else:
                     dealer_suit = random.choice(suits)
                     dealer_value = random.randint(1, 13)
@@ -113,18 +142,18 @@ def deal():
                         dealer_hand_total += dealer_value
                     if dealer_hand_total > 21:
                         print("Dealer busts, you win!")
-                        print(dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                        print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
                         multiplier = 2
                     elif player_hand_total > dealer_hand_total:
                         print("You win!")
                         multiplier = 2
                     elif player_hand_total == dealer_hand_total:
                         print("You tied!")
-                        print(dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                        print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
                         multiplier = 0
                     else:
                         print("Dealer wins!")
-                        print(dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                        print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
                         multiplier = -1
         else:
             dealer_suit = random.choice(suits)
@@ -142,17 +171,17 @@ def deal():
                 dealer_hand_total += dealer_value
             if dealer_hand_total > 21:
                 print("Dealer busts, you win!")
-                print(dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
                 multiplier = 2
             elif player_hand_total > dealer_hand_total:
                 print("You win!")
                 multiplier = 2
             elif player_hand_total == dealer_hand_total:
                 print("You tied!")
-                print(dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
                 multiplier = 0
             else:
                 print("Dealer wins!")
-                print(dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
+                print("DEALER HAND: " + dealer_hand[0] + dealer_hand[1] + dealer_hand[2])
                 multiplier = -1
     return multiplier

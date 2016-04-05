@@ -7,7 +7,7 @@ con = lite.connect('db.sqlite3')
 def rps(username):
     print("Rock, Paper, Scissors is a betting game.")
     print("How much do you want to bet?")
-    user_bet = input("pick a number: ")
+    user_bet = int(input("pick a number: "))
     with con:
         cur = con.cursor()
         cur.execute("""

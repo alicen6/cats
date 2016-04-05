@@ -4,7 +4,44 @@ from login import login
 from games.wheel import wheel
 from games.blackjack import blackjack
 from games.rps_game import rps
+from games.guessing_game import guess
+from market.market import market
 con = lite.connect('db.sqlite3')
+
+
+def main(username=None, assign_user=True):
+    if assign_user is True:
+        username = login()
+        print("Hello " + username + "!")
+        make_choice(username)
+
+
+def make_choice(username):
+    print("What would you like to do?")
+    user_input = input("play or buy?: ")
+    user_choice = user_input.lower()
+    if user_choice == "play":
+        print("What would you like to play?")
+        print("1. Wheel of Morality, 2. Rock Paper Scissors, 3. Blackjack,")
+        print("4. Guessing Game")
+        game_choice = input("pick a number: ")
+        if game_choice == "1":
+            play_wheel(username)
+        elif game_choice == "3":
+            play_blackjack(username)
+        elif game_choice == "2":
+            play_rps(username)
+        elif game_choice == "4":
+            play_guess(username)
+        else:
+            print("That is not an option, please try again.")
+            make_choice(username)
+    elif user_choice == "buy":
+        goto_market(username)
+        pass
+    else:
+        print("That is not an option, please try again.")
+        make_choice(username)
 
 
 def play_wheel(username):
@@ -14,7 +51,7 @@ def play_wheel(username):
     if "y" in again_user_input:
         play_wheel(username)
     else:
-        main(username=username, assign_user=False)
+        make_choice(username)
 
 
 def play_blackjack(username):
@@ -22,48 +59,39 @@ def play_blackjack(username):
     print("Play again?")
     again_user_input = input("yes or no?: ").lower()
     if "y" in again_user_input:
-        blackjack(username)
+        play_blackjack(username)
     else:
-        main(username=username, assign_user=False)
+        make_choice(username)
 
 
 def play_rps(username):
-    rps_game(username)
+    rps(username)
     print("Play again?")
     again_user_input = input("yes or no?: ").lower()
     if "y" in again_user_input:
-        rps_game(username)
+        play_rps(username)
     else:
-        main(username=username, assign_user=False)
+        make_choice(username)
 
 
-def main(username=None, assign_user=True):
-    if assign_user is True:
-        username = login()
-        print("Hello " + username + "!")
-    print("What would you like to do?")
-    user_input = input("play or buy?: ")
-    user_choice = user_input.lower()
-    if user_choice == "play":
-        print("What would you like to play?")
-        print("1. wheel, 2. rock paper scissors, 3. blackjack: ")
-        game_choice = input("pick a number: ")
-        if game_choice == "1":
-            play_wheel(username)
-        elif game_choice == "3":
-            play_blackjack(username)
-        elif game_choice == "2":
-            rps_game()
-            pass
-        else:
-            print("That is not an option, please try again.")
-            main()
-    elif user_choice == "buy":
-        # market()
-        pass
+def play_guess(username):
+    guess(username)
+    print("Play again?")
+    again_user_input = input("yes or no?: ").lower()
+    if "y" in again_user_input:
+        play_guess(username)
     else:
-        print("That is not an option, please try again.")
-        main()
+        make_choice(username)
+
+
+def goto_market(username):
+    market(username)
+    print("Buy something else?")
+    again_user_input = input("yes or no?: ").lower()
+    if "y" in again_user_input:
+        goto_market(username)
+    else:
+        make_choice(username)
 
 if __name__ == "__main__":
     main()
