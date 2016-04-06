@@ -7,3 +7,4 @@ app.py
 db.*
 learnhow/
 *.gif
+schema.sql
