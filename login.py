@@ -1,3 +1,4 @@
+from market.cat_schema import cat_schema
 import sqlite3 as lite
 con = lite.connect('db.sqlite3')
 
@@ -27,6 +28,7 @@ def login():
                 INSERT INTO users(id, username, points) VALUES(NULL, ?, ?);
             """, [username, 0])
             cur.close()
+    cat_schema()
     return username
 
 if __name__ == "__main__":
